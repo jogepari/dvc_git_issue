@@ -1,0 +1,23 @@
+stages:
+    preprocess:
+        foreach:
+          ${data.data_preprocessing_subdirs}
+        do:
+          cmd:
+          - python src/preprocess.py
+            --location_dir ${data.data_raw_dir}
+            --subdir ${item}
+            --output_dir ${data.data_interim_dir}/${item}
+            --param ${param1}
+          deps: 
+             - ${data.data_raw_dir}/${item}
+          params:
+            - data.data_interim_dir
+            - param1
+          outs:
+            - ${data.data_interim_dir}/${item}
+
+    train:
+       deps:
+         - ${data.data_interim_dir}
+       cmd: echo train

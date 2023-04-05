@@ -1,0 +1,9 @@
+[core]
+    analytics = false
+    autostage = true
+[hydra]
+    config_dir = config
+    config_name = main
+    enabled = True
+[cache]
+    type = "hardlink,symlink,copy"

@@ -1,0 +1,45 @@
+schema: '2.0'
+stages:
+  preprocess@dirA:
+    cmd:
+    - python src/preprocess.py --location_dir data/raw --subdir dirA --output_dir
+      data/interim/dirA --param param1
+    deps:
+    - path: data/raw/dirA
+      md5: 4fa81797ba46952cd305bf0d7b3499f3.dir
+      size: 10000000
+      nfiles: 2
+    params:
+      params.yaml:
+        data.data_interim_dir: data/interim
+        param1: param1
+    outs:
+    - path: data/interim/dirA
+      md5: df7830e228f694930d950a479628786c.dir
+      size: 10000016
+      nfiles: 2
+  preprocess@dirB:
+    cmd:
+    - python src/preprocess.py --location_dir data/raw --subdir dirB --output_dir
+      data/interim/dirB --param param1
+    deps:
+    - path: data/raw/dirB
+      md5: dfbe2e1e52a224fbb90e2fdc634a21c5.dir
+      size: 10000000
+      nfiles: 2
+    params:
+      params.yaml:
+        data.data_interim_dir: data/interim
+        param1: param1
+    outs:
+    - path: data/interim/dirB
+      md5: f9418aa2e137f1288883a4cce90aa465.dir
+      size: 10000016
+      nfiles: 2
+  train:
+    cmd: echo train
+    deps:
+    - path: data/interim
+      md5: 5955cc4ea500e05554ffcb0b0b50f3c2.dir
+      size: 20000032
+      nfiles: 4
